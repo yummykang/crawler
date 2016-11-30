@@ -11,6 +11,14 @@ public class FetcherUrl {
 
     private int status;
 
+    public FetcherUrl() {
+    }
+
+    public FetcherUrl(String url, int status) {
+        this.url = url;
+        this.status = status;
+    }
+
     public String getUrl() {
         return url;
     }
