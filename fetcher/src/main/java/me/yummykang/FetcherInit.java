@@ -3,14 +3,18 @@ package me.yummykang;
 import me.yummykang.bean.FetcherUrl;
 import me.yummykang.utils.HttpClientUtils;
 import me.yummykang.utils.MongodbUtils;
+import me.yummykang.utils.ProxyInfoFetcherTask;
 import me.yummykang.utils.SimpleBloomFilter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Random;
+import java.util.Timer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -35,7 +39,7 @@ public class FetcherInit {
         }
     }
 
-    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException {
 //        String url = "http://blog.csdn.net/code/newarticle.html";
 //
 //        Document document = Jsoup.parse(HttpClientUtils.doGet(url));
@@ -46,7 +50,7 @@ public class FetcherInit {
         fetchUrl("http://blog.csdn.net/", "http://blog.csdn.net/code/newarticle.html", "http://blog.csdn.net/[0-9a-zA-z]*/article/details/[0-9]*");
     }
 
-    public static void fetchUrl(String domain, String seedUrl, String regex) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public static void fetchUrl(String domain, String seedUrl, String regex) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException {
         String nextPageUrl = seedUrl;
         Document document = Jsoup.parse(HttpClientUtils.doGet(seedUrl));
         for (String nextPageText : Constants.NEXT_PAGE_TEXT) {

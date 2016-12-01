@@ -4,6 +4,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,9 +23,17 @@ public class HttpClientUtils {
      * @param url
      * @return
      */
-    public static String doGet(String url) {
+    public static String doGet(String url) throws IOException {
         String result = null;
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        // 设置代理
+        CloseableHttpClient httpClient;
+        if (ProxyPool.proxyMap.size() != 0) {
+            DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(ProxyPool.getRandomHttpHost());
+            httpClient = HttpClients.custom().setRoutePlanner(routePlanner).build();
+        } else {
+            httpClient = HttpClients.createDefault();
+        }
+
         HttpGet httpGet = new HttpGet(url);
         httpGet.setHeader("User-Agent", "Mozilla/5.0 (SymbianOS/9.1; U; en-us) AppleWebKit/413 (KHTML, like Gecko) Safari/413");
         try {
@@ -34,14 +43,13 @@ public class HttpClientUtils {
             String s; // 依次循环，至到读的值为空
             StringBuilder sb = new StringBuilder();
             while ((s = reader.readLine()) != null) {
-                sb.append(s);
+                sb.append(s + " ");
             }
             reader.close();
             result = sb.toString();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return result;
     }
 }
