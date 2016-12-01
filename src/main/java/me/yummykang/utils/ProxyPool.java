@@ -4,8 +4,6 @@ import org.apache.http.HttpHost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.net.InetAddress;
 import java.util.*;
 
 /**
@@ -30,7 +28,7 @@ public class ProxyPool {
      *
      * @return
      */
-    public static HttpHost getRandomHttpHost() throws IOException {
+    public static HttpHost getRandomHttpHost() {
         if (proxyMap.size() == 0) {
             return null;
         } else {
@@ -38,14 +36,8 @@ public class ProxyPool {
             List<String> keys = new ArrayList<>(proxyMap.keySet());
             String randomKey = keys.get(random.nextInt(keys.size()));
             Integer value = proxyMap.get(randomKey);
-            InetAddress addr = InetAddress.getByName(randomKey);
-            if (addr.isReachable(1000)) {
-                logger.info("**************使用代理{}:{}****************", randomKey, value);
-                return new HttpHost(randomKey, value);
-            } else {
-                logger.info("**************代理{}:{}失效重新检取****************", randomKey, value);
-                return getRandomHttpHost();
-            }
+            logger.info("**************使用代理{}:{}****************", randomKey, value);
+            return new HttpHost(randomKey, value, "http");
         }
     }
 }

@@ -3,7 +3,6 @@ package me.yummykang.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.TimerTask;
 
 /**
@@ -23,7 +22,7 @@ public class ProxyInfoFetcherTask extends TimerTask {
         String result = null;
         try {
             result = HttpClientUtils.doGet(API_URL);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         // 这个地方最好用正则匹配一下
