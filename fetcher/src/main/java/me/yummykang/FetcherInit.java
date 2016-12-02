@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class FetcherInit {
 
-    private static ConcurrentLinkedQueue<FetcherUrl> urlQueue = new ConcurrentLinkedQueue<>();
+    public static ConcurrentLinkedQueue<FetcherUrl> urlQueue = new ConcurrentLinkedQueue<>();
 
     private static SimpleBloomFilter bloomFilter = new SimpleBloomFilter();
 
@@ -47,6 +47,10 @@ public class FetcherInit {
 //        for (Element element : elements) {
 //            System.out.println(element.text());
 //        }
+        fetchUrl("http://blog.csdn.net/", "http://blog.csdn.net/code/newarticle.html", "http://blog.csdn.net/[0-9a-zA-z]*/article/details/[0-9]*");
+    }
+
+    public static void start() throws InvocationTargetException, NoSuchMethodException, IOException, IllegalAccessException {
         fetchUrl("http://blog.csdn.net/", "http://blog.csdn.net/code/newarticle.html", "http://blog.csdn.net/[0-9a-zA-z]*/article/details/[0-9]*");
     }
 
