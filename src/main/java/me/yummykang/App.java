@@ -10,7 +10,5 @@ import java.lang.reflect.InvocationTargetException;
 public class App 
 {
     public static void main( String[] args ) throws NoSuchMethodException, IOException, IllegalAccessException, InvocationTargetException {
-        FetcherInit.start();
-        SpiderInit.start();
     }
 }
