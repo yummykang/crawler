@@ -37,14 +37,20 @@ public class Spider implements Runnable {
                 logger.info("********添加一条抓取的数据到solr,url:{}************", fetcherUrl.getUrl());
                 String urlString = "http://localhost:8983/solr/blogs";
                 SolrClient solr = new HttpSolrClient.Builder(urlString).build();
-                SolrInputDocument document = new SolrInputDocument();
-                document.addField("id", UUID.randomUUID());
-                document.addField("url", fetcherUrl.getUrl());
-                document.addField("text", result);
+                SourceData sourceData = new SourceData();
+                sourceData.setId(UUID.randomUUID().toString());
+                sourceData.setUrl(fetcherUrl.getUrl());
+                sourceData.setText(result);
+                sourceData.setStatus(0);
+//                SolrInputDocument document = new SolrInputDocument();
+//                document.setField("id", UUID.randomUUID().toString());
+//                document.setField("url", fetcherUrl.getUrl());
+//                document.setField("text", result);
                 // 未被解析
-                document.addField("status", 0);
+//                document.setField("status", 0);
                 try {
-                    solr.add(document);
+//                    solr.add(document);
+                    solr.addBean(sourceData);
                     solr.commit();
 
                     MongodbUtils.update(fetcherUrl.getUrl());

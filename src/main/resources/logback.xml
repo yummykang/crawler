@@ -28,12 +28,12 @@
     </appender>
 
     <!-- project default level -->
-    <logger name="cn.org.citycloud" level="INFO" />
+    <logger name="cn.org.citycloud" level="ERROR" />
 
     <!--slf4j2包下的类在ERROR级别时候传递到root logger中-->
-    <logger name="slf4j2" level="INFO" />
+    <logger name="slf4j2" level="ERROR" />
 
-    <root level="INFO">
+    <root level="ERROR">
         <appender-ref ref="console" />
         <appender-ref ref="rollingFile" />
     </root>

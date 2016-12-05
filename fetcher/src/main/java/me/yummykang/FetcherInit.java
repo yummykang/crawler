@@ -3,7 +3,6 @@ package me.yummykang;
 import me.yummykang.bean.FetcherUrl;
 import me.yummykang.utils.HttpClientUtils;
 import me.yummykang.utils.MongodbUtils;
-import me.yummykang.utils.ProxyInfoFetcherTask;
 import me.yummykang.utils.SimpleBloomFilter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,8 +14,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Random;
-import java.util.Timer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
