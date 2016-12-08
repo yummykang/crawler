@@ -28,16 +28,16 @@ public class SolrUtils {
     /**
      * 查询index
      */
-    public static List<String> search() {
-        List<String> result = new ArrayList<>();
+    public static List<SourceData> search() {
+        List<SourceData> result = new ArrayList<>();
         SolrQuery params = new SolrQuery();
         // 查询关键词，*:*代表所有属性、所有值，即所有index
         // params.set("q", "*:*");
         params.set("q", "status:0");// 查询nickname是已chm开头的数据
 
         // 分页，start=0就是从0开始，，rows=5当前返回5条记录，第二页就是变化start这个值为5就可以了。
-//        params.set("start", 0);
-//        params.set("rows", 5);
+        params.set("start", 0);
+        params.set("rows", 1000);
 
         // 按nickname排序，asc升序 desc降序
         params.set("sort", "id asc");
@@ -48,7 +48,10 @@ public class SolrUtils {
             System.out.println("文档个数：" + docs.getNumFound());
             System.out.println("查询时间：" + rsp.getQTime());
             for (SolrDocument doc : docs) {
-                result.add((String) ((ArrayList)doc.getFieldValue("text")).get(0));
+                SourceData sourceData = new SourceData();
+                sourceData.setId((String) (doc.getFieldValue("id")));
+                sourceData.setText((String) ((ArrayList)doc.getFieldValue("text")).get(0));
+                result.add(sourceData);
             }
         } catch (Exception e) {
             e.printStackTrace();

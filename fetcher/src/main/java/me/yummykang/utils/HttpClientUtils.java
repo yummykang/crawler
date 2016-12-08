@@ -6,10 +6,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
@@ -61,7 +64,7 @@ public class HttpClientUtils {
             String s; // 依次循环，至到读的值为空
             StringBuilder sb = new StringBuilder();
             while ((s = reader.readLine()) != null) {
-                sb.append(s + " ");
+                sb.append(s);
             }
             reader.close();
             result = sb.toString();
@@ -70,5 +73,10 @@ public class HttpClientUtils {
             logger.error("*********************请求失败，重新请求*********************");
         }
         return result == null ? "" : result;
+    }
+
+    public static void main(String[] args) throws IOException {
+        Document doc = Jsoup.connect("http://blog.csdn.net/u012660464/article/details/53463708").header("User-Agent", "Mozilla/5.0 (SymbianOS/9.1; U; en-us) AppleWebKit/413 (KHTML, like Gecko) Safari/413").get();
+        System.out.println();
     }
 }

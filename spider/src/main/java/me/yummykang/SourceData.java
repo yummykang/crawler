@@ -6,7 +6,7 @@ import org.apache.solr.client.solrj.beans.Field;
  * write some dec. here.
  * Created by Demon on 2016/12/5 0005.
  */
-public class SourceData {
+public class SourceData implements Comparable {
     @Field("id")
     private String id;
 
@@ -59,5 +59,10 @@ public class SourceData {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.id.equals(((SourceData) o).getId()) ? 0 : 1;
     }
 }

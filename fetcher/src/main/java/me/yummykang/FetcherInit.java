@@ -71,7 +71,8 @@ public class FetcherInit implements Runnable {
     @Override
     public void run() {
         try {
-            fetchUrl("http://blog.csdn.net/", "http://blog.csdn.net/code/newarticle.html", "http://blog.csdn.net/[0-9a-zA-z]*/article/details/[0-9]*");
+//            fetchUrl("http://blog.csdn.net/", "http://blog.csdn.net/code/newarticle.html", "http://blog.csdn.net/[0-9a-zA-z]*/article/details/[0-9]*");
+            fetchUrl("http://www.cnblogs.com/", "http://www.cnblogs.com/", "http://www.cnblogs.com/[0-9a-zA-z]*/p/[0-9]*.html");
         } catch (NoSuchMethodException e) {
             logger.error("fetchUrl方法调用失败，失败原因：{}", e.getCause());
         } catch (IllegalAccessException e) {
